@@ -6,6 +6,7 @@ import Todo, { filters } from './todo.vue';
 const app = vue.createApp(preview(Todo, {
   todos: [{
   }],
+  remaining: 0,
   filteredTodos: [{
     id: 1,
     title: 'hello',

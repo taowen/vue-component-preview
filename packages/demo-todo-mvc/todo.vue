@@ -175,7 +175,15 @@ export default vue.defineComponent({
         </li>
         </ul>
     </section>
-	<TodoFooter :todos="todos" :visibility="visibility" />
+	<TodoFooter :todos="todos" :visibility="visibility">
+        <button
+                class="clear-completed"
+                @click="removeCompleted"
+                v-show="todos.length > remaining"
+                >
+        Clear completed
+        </button>
+	</TodoFooter>
     </section>
     <footer class="info">
     <p>Double-click to edit a todo</p>

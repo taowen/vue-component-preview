@@ -4,7 +4,7 @@ function wrapProxy(data) {
     if (typeof data !== 'object') { return data; }
     return new Proxy({}, {
         get(target, p, receiver) {
-            if (data[p]) { return wrapProxy(data[p]); }
+            if (data[p] !== undefined) { return wrapProxy(data[p]); }
             if (data.__get__) { return wrapProxy(data.__get__(p)); }
         }
     })
@@ -13,7 +13,7 @@ function preview(app, dataProvider) {
     return defineComponent({
         render() {
             const data = typeof dataProvider === 'function' ? dataProvider(this.$props) : dataProvider;
-            const proxyToUse = wrapProxy(data);
+            const proxyToUse = wrapProxy({...data, $slots: this.$slots});
             const wrappedComponents = {};
             const counters = {};
             for (const [componentName, componentType] of Object.entries(app.components || {})) {

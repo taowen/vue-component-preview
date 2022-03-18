@@ -35,12 +35,6 @@ export default vue.defineComponent({
             :class="{ selected: visibility == 'completed' }">Completed</a>
         </li>
         </ul>
-        <button
-                class="clear-completed"
-                @click="removeCompleted"
-                v-show="todos.length > remaining"
-                >
-        Clear completed
-        </button>
+        <slot />
     </footer>
 </template>
