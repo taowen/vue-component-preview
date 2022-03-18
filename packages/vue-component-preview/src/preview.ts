@@ -5,10 +5,6 @@ export function preview(app: any, dataProvider: any) {
         render() {
             const data = dataProvider(this.$props);
             const proxyToUse = wrapProxy(data);
-            const renderCache = {};
-            const props = {};
-            const setupState = {};
-            const ctx = {};
             const wrappedComponents = {};
             const counters: Record<string, number> = {};
             for (const [componentName, componentType] of Object.entries(app.components || {})) {
@@ -25,7 +21,7 @@ export function preview(app: any, dataProvider: any) {
             if (typeof app === 'function') {
                 return app(this.$props, { slots: this.$slots });
             } else {
-                return app.render.call(proxyToUse, proxyToUse, renderCache, props, setupState, data, ctx);
+                return app.render.call(proxyToUse, proxyToUse, {}, {}, {}, data, {});
             }
         }
     })
