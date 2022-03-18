@@ -16,14 +16,20 @@ export function preview(app: any, dataProvider: any) {
                     wrappedComponents[componentName] = preview(componentType, (props) => {
                         const counter = counters[componentName] = counters[componentName] || 0;
                         counters[componentName]++;
-                        return data.__render__({ counter, componentName, componentType }, props);
+                        if (data.__render__) {
+                            return data.__render__({ counter, componentName, componentType }, props);
+                        }
+                        return undefined;
                     });
                 }
             }
             this.$.components = wrappedComponents;
             this.$.directives = app.directives;
-            const rendered = app.render.call(proxyToUse, proxyToUse, renderCache, props, setupState, data, ctx);
-            return rendered;
+            if (typeof app === 'function') {
+                return app(this.$props, { slots: this.$slots });
+            } else {
+                return app.render.call(proxyToUse, proxyToUse, renderCache, props, setupState, data, ctx);
+            }
         }
     })
 }

@@ -1,5 +1,7 @@
 <script type="javascript">
 import * as vue from 'vue';
+import RemainingCounter from './RemainingCounter';
+
 export default vue.defineComponent({
     props: ['todos', 'visibility'],
     computed: {
@@ -10,13 +12,16 @@ export default vue.defineComponent({
             return filters.active(this.todos).length;
         },
     },
+    components: {
+        RemainingCounter
+    }
 })
 </script>
 <template>
     <footer class="footer" v-show="todos.length" v-cloak>
-        <span class="todo-count">
+        <RemainingCounter>
         <strong>{{ remaining }}</strong> {{ remaining | pluralize }} left
-        </span>
+        </RemainingCounter>
         <ul class="filters">
         <li>
             <a href="#/all" :class="{ selected: visibility == 'all' }">All</a>
