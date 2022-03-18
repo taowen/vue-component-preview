@@ -1,10 +1,10 @@
+import { preview } from 'vue-component-preview';
 import * as vue from 'vue';
 import Todo from './todo.vue';
 import { filters } from './todo.vue';
 
 // app Vue instance
-const app = vue.createApp(Todo);
-console.log(Todo);
+const app = vue.createApp(preview(Todo, {}));
 
 // mount
 const vm = app.mount("#app");

@@ -3,7 +3,8 @@
     "private": true,
     "version":"0.0.1",
     "dependencies": {
-        "vue": "^3.2.31"
+        "vue": "^3.2.31",
+        "vue-component-preview": "workspace:*"
     },
     "devDependencies": {
         "vite": "^2.8.6",

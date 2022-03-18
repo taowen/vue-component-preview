@@ -1,7 +1,8 @@
 {
     "name":"vue-component-preview",
     "version":"0.0.1",
+    "main": "src/index.ts",
     "dependencies": {
-        "vue": "^3.2.31"
+        "@vue/runtime-core": "^3.2.31"
     }
 }
