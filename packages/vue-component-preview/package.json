@@ -1,0 +1,7 @@
+{
+    "name":"vue-component-preview",
+    "version":"0.0.1",
+    "dependencies": {
+        "vue": "^3.2.31"
+    }
+}

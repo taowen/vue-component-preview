@@ -1,0 +1,12 @@
+{
+    "name":"demo-todo-mvc",
+    "private": true,
+    "version":"0.0.1",
+    "dependencies": {
+        "vue": "^3.2.31"
+    },
+    "devDependencies": {
+        "vite": "^2.8.6",
+        "@vitejs/plugin-vue": "^2.2.0"
+    }
+}
