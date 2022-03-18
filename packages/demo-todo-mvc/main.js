@@ -1,20 +1,29 @@
-import { preview } from 'vue-component-preview';
 import * as vue from 'vue';
-import Todo from './todo.vue';
-import { filters } from './todo.vue';
+import { preview } from 'vue-component-preview';
+import Todo, { filters } from './todo.vue';
 
 // app Vue instance
-const app = vue.createApp(preview(Todo, {
+const app = vue.createApp(preview(Todo, () => {
+  return {
     todos: [{
     }],
     filteredTodos: [{
-        id: 1,
-        title: 'hello',
-        completed: true
+      id: 1,
+      title: 'hello',
+      completed: true
     }],
+    // when data used but not provided, will callback this
     __get__(p) {
-        console.log(p);
+      console.log(p);
+    },
+    // when child component being rendered, provide its data
+    __render__({ componentName, componentType, counter }, props) {
+      return {
+        todos: [{
+        }],
+      }
     }
+  }
 }));
 
 // mount
