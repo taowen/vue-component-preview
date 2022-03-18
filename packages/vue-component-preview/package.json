@@ -1,7 +1,10 @@
 {
     "name":"vue-component-preview",
-    "version":"0.0.1",
-    "main": "src/index.ts",
+    "version":"1.0.0",
+    "license": "MIT",
+    "main": "./index.js",
+    "module": "./index.mjs",
+    "types": "./index.d.ts",
     "dependencies": {
         "@vue/runtime-core": "^3.2.31"
     }

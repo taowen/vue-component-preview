@@ -1,12 +1,21 @@
-import * as vue from '@vue/runtime-core';
+import { defineComponent } from '@vue/runtime-core';
 
-export function preview(app: any, dataProvider: any) {
-    return vue.defineComponent({
+function wrapProxy(data) {
+    if (typeof data !== 'object') { return data; }
+    return new Proxy({}, {
+        get(target, p, receiver) {
+            if (data[p]) { return wrapProxy(data[p]); }
+            if (data.__get__) { return wrapProxy(data.__get__(p)); }
+        }
+    })
+}
+function preview(app, dataProvider) {
+    return defineComponent({
         render() {
-            const data = dataProvider(this.$props);
+            const data = typeof dataProvider === 'function' ? dataProvider(this.$props) : dataProvider;
             const proxyToUse = wrapProxy(data);
             const wrappedComponents = {};
-            const counters: Record<string, number> = {};
+            const counters = {};
             for (const [componentName, componentType] of Object.entries(app.components || {})) {
                 wrappedComponents[componentName] = preview(componentType, (props) => {
                     const counter = counters[componentName] = counters[componentName] || 0;
@@ -27,12 +36,4 @@ export function preview(app: any, dataProvider: any) {
     })
 }
 
-function wrapProxy(data: any) {
-    if (typeof data !== 'object') { return data; }
-    return new Proxy({}, {
-        get(target, p, receiver) {
-            if (data[p]) { return wrapProxy(data[p]); }
-            if (data.__get__) { return wrapProxy(data.__get__(p)); }
-        }
-    })
-}
+export default preview;

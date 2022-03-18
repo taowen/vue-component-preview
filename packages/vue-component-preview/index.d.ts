@@ -1,0 +1,1 @@
+export default function<T>(app: T, dataProvider: Function | Object): T;
